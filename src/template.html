@@ -6,24 +6,50 @@
     <title>Todo List</title>
   </head>
   <body>
-    <h1>Todo List</h1>
-    <h2>Projects</h2>
-    <form id="project-form">
+    <h1 class="title">Doing first</h1>
+    <!-- Projects div -->
+    <div class="project-list">Lorem ipsum dolor sit amet.</div>
+    <h2 class="projects-title">Projects</h2>
+    <ul class="project-title">
+      Inbox
+    </ul>
+    <ul class="project-title">
+      Work
+    </ul>
+    <ul class="project-title">
+      Home
+    </ul>
+
+    <form action="">
       <input
         type="text"
-        id="project-name"
-        placeholder="Project name"
-        required
+        class="project-input"
+        placeholder="Add a new project"
+        aria-label="Add a new project"
       />
-      <button type="submit">Add Project</button>
+      <button type="submit" class="project-button">+</button>
     </form>
-    <div id="project-list"></div>
-
-    <h2>Todos</h2>
-    <form id="todo-form">
-      <input type="text" id="todo-title" placeholder="Todo title" required />
-      <button type="submit">Add Todo</button>
-    </form>
-    <div id="todo-list"></div>
+    <!-- END Projects div -->
+    <!-- Todos div -->
+    <div class="todo-list">
+      <!-- First part -->
+      <div class="todo-header">
+        <h2 class="todo-title"></h2>
+        <p class="task-count">3 tasks remaining</p>
+      </div>
+      <!-- Second part -->
+      <div class="todo-body">
+        <div class="tasks">
+          <div class="task">
+            <input type="checkbox" id="task1" /> <label for="task1">Eat</label>
+          </div>
+        </div>
+        <div class="new-task-creator"></div>
+        <div class="delete-stuffs">
+          <button class="btn-delete-task"></button>
+        </div>
+      </div>
+    </div>
+    <!-- End todo div -->
   </body>
 </html>
