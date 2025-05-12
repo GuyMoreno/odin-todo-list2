@@ -3,6 +3,7 @@
   --clr-light: rgb(255, 238, 238);
   --clr-dark: rgba(49, 47, 47, 0.884);
   --clr-red: rgb(151, 52, 52);
+  --spacer: 2rem;
 }
 
 body {
@@ -27,7 +28,7 @@ body {
   background-color: var(--clr-primary);
   color: var(--clr-dark);
   font-weight: 300;
-  font-size: 1.5rem;
+  font-size: 1.8rem;
 }
 
 h2 {
@@ -40,7 +41,7 @@ h2 {
   font-size: clamp(3.5rem, 7vw, 5.5rem);
   font-weight: 900;
   /* the forth parm sets opacity */
-  color: rgb(0, 0, 0, 0.3);
+  color: rgb(0, 0, 0, 0.2);
   letter-spacing: 20px;
 }
 
@@ -48,8 +49,82 @@ h2 {
 
 .projects {
   grid-area: projects;
+  margin: 0;
 }
 
 .todo-modal {
   grid-area: active-todos;
+  background-color: var(--clr-light);
+  color: var(--clr-dark);
+}
+
+.todo-header {
+  background-color: lightpink;
+  padding: var(--spacer);
+}
+
+.todo-body {
+  padding: var(--spacer);
+  /* background-color: var(--clr-light); */
+}
+
+/* projects bullets👇🏼 */
+.project-list {
+  line-height: 3rem;
+  font-size: 2rem;
+  list-style: circle;
+}
+
+.active-project {
+  font-weight: 700;
+}
+
+form {
+  display: flex;
+}
+
+/* two inputs forms */
+.new {
+  background: transparent;
+  border: none;
+  color: inherit;
+  border-bottom: 1px solid;
+  font-size: 1rem;
+  transition: border-bottom 180ms ease;
+
+  /* will switch the order of the field and + sign */
+  order: 2;
+}
+
+/* two inputs forms focus */
+
+.new:focus {
+  outline: none;
+  border-bottom: 1.8px solid var(--clr-red);
+}
+
+.new:focus::placeholder {
+  opacity: 0.2;
+}
+
+/* .new-task-creator {
+  font-size: 3rem;
+} */
+
+.btn {
+  cursor: pointer;
+  background: none;
+  border: 0;
+  padding: 0;
+  margin-right: 10px;
+  margin-top: 10px;
+}
+
+.btn:hover {
+  opacity: 0.5;
+}
+
+.btn.create {
+  font-size: 2rem;
+  font-weight: 900;
 }
