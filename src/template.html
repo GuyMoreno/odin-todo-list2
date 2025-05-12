@@ -6,56 +6,115 @@
     <title>Todo List</title>
   </head>
   <body>
-    <h1 class="title">Doing first</h1>
-    <!-- Projects div / div class all-tasks -->
+    <h1 class="title">Doing First</h1>
+
+    <!-- Projects div / .all-tasks -->
     <div class="projects">
-      <h2 class="projects-title">Projects</h2>
+      <!-- .task-list-title -->
+      <h2 class="projects-title">My lists / Projects</h2>
+
+      <!-- .task-list -->
       <ul class="project-list">
         <li class="active-list">Inbox</li>
         <li>Home</li>
+        <li>Work</li>
       </ul>
 
       <form action="">
+        <!-- .new list -->
         <input
           type="text"
           class="project-input"
           placeholder="Add a new project"
           aria-label="Add a new project"
         />
-        <button type="submit" class="project-btn">+</button>
+
+        <!-- .btn list -->
+        <button
+          type="submit"
+          class="project-btn"
+          aria-label="create new project"
+        >
+          +
+        </button>
       </form>
     </div>
-    <!-- END of projects div -->
+    <!-- END of Projects div / .all-tasks -->
 
-    <!-- Todos div -->
-    <!-- in youtube: "todo-list" -->
+    <!-- Todos div / .todo-list -->
     <div class="todo-modal">
       <!-- todo-header -->
       <div class="todo-header">
+        <!-- .list-title -->
         <h2 class="todo-modal-title">Youtube</h2>
+
         <p class="task-count">3 tasks remaining</p>
       </div>
       <!-- End todo-header -->
-      <!-- start todo-body -->
+
+      <!-- start todo-body (3 parts) -->
       <div class="todo-body">
-        <!-- Start tasks list -->
+        <!-- Start (1) tasks list -->
         <div class="tasks">
           <!-- Each indvedual task format -->
-          <div class="task">
-            <input type="checkbox" id="task1" /> <label for="task1">Eat</label>
-          </div>
-        </div>
-        <!-- End tasks list -->
-        <!-- Start new task creator -->
-        <div class="new-task-creator"></div>
-        <!-- End new-task-creator -->
 
-        <div class="delete-stuffs">
-          <button class="btn-delete-task"></button>
+          <!-- (1.1) -->
+          <div class="task">
+            <input type="checkbox" id="task1" />
+            <label for="task1"> Eat </label>
+            <!-- empty span for styling checkbox -->
+            <span class="custom-checkbox"></span>
+          </div>
+          <!-- END task1.1 -->
+
+          <!-- (1.2) -->
+          <div class="task">
+            <input type="checkbox" id="task2" />
+            <label for="task2"> Drink </label>
+            <!-- empty span for styling checkbox -->
+            <span class="custom-checkbox"></span>
+          </div>
+          <!-- END task1.2 -->
+
+          <!-- (1.3) -->
+          <div class="task">
+            <input type="checkbox" id="task3" />
+            <label for="task3"> Rest </label>
+            <!-- empty span for styling checkbox -->
+            <span class="custom-checkbox"></span>
+          </div>
+          <!-- END task1.3 -->
         </div>
+        <!-- END (1) tasks -->
+
+        <!-- START (2) new task creator -->
+        <div class="new-task-creator">
+          <form action="">
+            <!-- .new list -->
+            <input
+              type="text"
+              class="todo-input"
+              placeholder="Add a new Todo"
+              aria-label="Add a new Todo"
+            />
+
+            <!-- .btn list -->
+            <button type="submit" class="todo-btn" aria-label="create new todo">
+              +
+            </button>
+          </form>
+        </div>
+        <!-- END new-task-creator -->
+
+        <!-- Start (3) delete stuffs -->
+        <div class="delete-stuffs">
+          <button class="btn-delete-task">Clear completed tasks</button>
+          <button class="btn-clear">Delete list</button>
+        </div>
+        <!-- End delete-stuffs -->
       </div>
-      <!-- end of todo-body -->
+      <!-- END of todo-body (3 parts) -->
     </div>
-    <!-- End todo-modal div -->
+    <!-- End todo-modal div / .todo-list -->
   </body>
 </html>

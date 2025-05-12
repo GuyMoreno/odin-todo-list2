@@ -1,3 +1,55 @@
+:root {
+  --clr-primary: rgb(151, 150, 150);
+  --clr-light: rgb(255, 238, 238);
+  --clr-dark: rgba(49, 47, 47, 0.884);
+  --clr-red: rgb(151, 52, 52);
+}
+
 body {
-  background-color: hotpink;
+  display: grid;
+  grid-template-areas:
+    "header header header header"
+    "...... projects  active-todos ......";
+
+  /* Division for 2 */
+  grid-template-rows: auto auto;
+
+  /* Columns:
+    1. 1fr – left spacing column (flexible)
+    2. minmax(100px, 300px) – projects column
+    3. minmax(250px, 500px) – todos column
+    4. 1fr – right spacing column (same as left)
+*/
+  grid-template-columns: 1fr minmax(10rem, 20rem) minmax(15rem, 30rem) 1fr;
+
+  margin: 0;
+  font-family: "Poppins", sans-serif;
+  background-color: var(--clr-primary);
+  color: var(--clr-dark);
+  font-weight: 300;
+  font-size: 1.5rem;
+}
+
+h2 {
+  font-size: clamp(1.5rem, 4vw, 2rem);
+}
+
+.title {
+  grid-area: header;
+  text-align: center;
+  font-size: clamp(3.5rem, 7vw, 5.5rem);
+  font-weight: 900;
+  /* the forth parm sets opacity */
+  color: rgb(0, 0, 0, 0.3);
+  letter-spacing: 20px;
+}
+
+/* .all-tasks */
+
+.projects {
+  grid-area: projects;
+}
+
+.todo-modal {
+  grid-area: active-todos;
 }
