@@ -3,7 +3,7 @@ import Project from "./project";
 export default class ProjectManager {
   constructor() {
     this._projects = [];
-    this.activeProject = null;
+    this.activeProjectId = null;
   }
 
   addProject(name) {
@@ -17,10 +17,10 @@ export default class ProjectManager {
   }
 
   setActiveProject(project) {
-    this.activeProject = project;
+    this.activeProjectId = project.id;
   }
 
   getActiveProject() {
-    return this.activeProject;
+    return this._projects.find((p) => p.id === this.activeProjectId) || null;
   }
 }

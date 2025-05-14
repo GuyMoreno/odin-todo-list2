@@ -51,7 +51,7 @@ function render() {
     projectElement.classList.add("project");
     projectElement.textContent = project.name;
 
-    if (projectManager.getActiveProject() === project) {
+    if (projectManager.activeProjectId === project.id) {
       projectElement.classList.add("active");
     }
 
@@ -61,6 +61,7 @@ function render() {
 
       // TEST if the project is active
       console.log(projectManager.getActiveProject().name);
+      console.log(projectManager.getActiveProject().id);
     });
 
     projectsContainer.appendChild(projectElement);
