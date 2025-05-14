@@ -54,18 +54,23 @@ h2 {
 
 .todo-modal {
   grid-area: active-todos;
-  background-color: var(--clr-light);
+  background-color: rgb(200, 197, 198);
   color: var(--clr-dark);
+  border-radius: 1.8rem;
 }
 
 .todo-header {
-  background-color: lightpink;
+  background-color: rgb(200, 197, 198);
   padding: var(--spacer);
+  border-radius: 1.8rem;
 }
 
 .todo-body {
   padding: var(--spacer);
-  /* background-color: var(--clr-light); */
+  border-radius: 1.8rem;
+}
+
+.task label {
 }
 
 /* projects bullets👇🏼 */
@@ -75,7 +80,14 @@ h2 {
   list-style: circle;
 }
 
-.active-project {
+.project {
+  cursor: pointer;
+}
+.project:hover {
+  opacity: 0.5;
+}
+
+.project.active {
   font-weight: 700;
 }
 
@@ -127,4 +139,20 @@ form {
 .btn.create {
   font-size: 2rem;
   font-weight: 900;
+}
+
+.delete-stuffs {
+  /* display: flex;
+  justify-content: space-evenly;
+  width: 100%; */
+  /* left: 0; */
+}
+
+.btn.delete {
+  opacity: 0.5;
+  font-size: 1rem;
+}
+
+.new {
+  padding: 1em;
 }
