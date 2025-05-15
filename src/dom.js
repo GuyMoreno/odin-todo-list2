@@ -1,4 +1,4 @@
-import Project from "./project.js";
+// This module handles the DOM manipulation for the project and todo lists.
 
 import ProjectManager from "./projectManager.js";
 
@@ -9,41 +9,33 @@ const formTodo = document.querySelector(".form-todo");
 
 const projectManager = new ProjectManager();
 
-// Project list in array...
-// let projects = [Inbox, Work, Personal];
-// let projects = [
-//   //   {
-//   //     name: "Inbox",
-//   //     todos: ["Buy milk", "Do homework"],
-//   //   },
-//   //   {
-//   //     name: "Work",
-//   //     todos: ["Finish report", "Call client"],
-//   //   },
-// ];
+// event listener for the project's form
 
 formProject.addEventListener("submit", (e) => {
   e.preventDefault();
 
   // get the value of the input
 
-  const projectName = formProject.querySelector("input").value;
+  const projectName = formProject
+    .querySelector("input")
+    .value.toLowerCase()
+    .trim();
   if (projectName == null || projectName == "") {
     return;
   }
-  const project = projectManager.addProject(projectName);
+
+  projectManager.addProject(projectName);
   formProject.querySelector("input").value = null; // clear the input field
 
   render(); // rerender the list
-  console.log(projectManager.projects);
+  console.log(
+    "✅ A project object is successfully logged:",
+    projectManager.projects
+  );
 });
-
-// flag to check if a project is active
-// let activeProject = null;
 
 function render() {
   // Clear the list before rendering
-
   clearElement(projectsContainer);
 
   projectManager.projects.forEach((project) => {
@@ -60,17 +52,13 @@ function render() {
       render();
 
       // TEST if the project is active
-      console.log(projectManager.getActiveProject().name);
-      console.log(projectManager.getActiveProject().id);
+      console.log("Project's name:", projectManager.getActiveProject().name);
+      console.log("Project's id: ", projectManager.getActiveProject().id);
     });
 
     projectsContainer.appendChild(projectElement);
   });
 }
-
-//  <li class="project">Work</li>
-
-// clear list every time we render
 
 function clearElement(element) {
   while (element.firstChild) {

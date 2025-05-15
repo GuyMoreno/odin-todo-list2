@@ -7,6 +7,12 @@ export default class ProjectManager {
   }
 
   addProject(name) {
+    const exists = this._projects.some((project) => project.name === name);
+    if (exists) {
+      alert("🔔 A project with that name already exists");
+      return null;
+    }
+
     const project = new Project(name);
     this._projects.push(project);
     return project;
