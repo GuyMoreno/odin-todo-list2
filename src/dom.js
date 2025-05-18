@@ -1,13 +1,46 @@
-// This module handles the DOM manipulation for the project and todo lists.
+// dom.js
 
 import ProjectManager from "./projectManager.js";
 
+import Todo from "./todo.js";
+
+import { Storage } from "./storage.js";
+
 const projectsContainer = document.querySelector(".project-list");
+const todosContainer = document.querySelector(".todo-modal");
+
+const selectedProjectDomTitle = document.querySelector(".todo-modal-title");
 
 const formProject = document.querySelector(".form-project");
 const formTodo = document.querySelector(".form-todo");
 
+const todoDialog = document.querySelector(".dialog-todo");
+
 const projectManager = new ProjectManager();
+
+formTodo.addEventListener("submit", (e) => {
+  e.preventDefault();
+
+  const formData = new FormData(detailsForm);
+  const description = formData.get("description");
+  const dueDate = formData.get("dueDate");
+  const priority = formData.get("priority");
+  const notes = formData.get("notes");
+
+  const todo = new Todo(
+    currentTodoTitle,
+    description,
+    dueDate,
+    priority,
+    notes
+  );
+  const activeProject = projectManager.getActiveProject();
+  activeProject.addTodo(todo);
+
+  Storage.saveProjects(projectManager.projects);
+  renderTodos();
+  todoDialog.close();
+});
 
 // event listener for the project's form
 
@@ -27,15 +60,26 @@ formProject.addEventListener("submit", (e) => {
   projectManager.addProject(projectName);
   formProject.querySelector("input").value = null; // clear the input field
 
-  render(); // rerender the list
+  renderProjects(); // rerender the list
   console.log(
     "✅ A project object is successfully logged:",
     projectManager.projects
   );
 });
 
-function render() {
-  // Clear the list before rendering
+function renderTodos() {
+  const selectedProject = projectManager.getActiveProject();
+
+  if (!selectedProject) {
+    todosContainer.style.display = "none";
+    return;
+  }
+
+  todosContainer.style.display = "block";
+  selectedProjectDomTitle.innerText = selectedProject.name;
+}
+
+function renderProjects() {
   clearElement(projectsContainer);
 
   projectManager.projects.forEach((project) => {
@@ -49,7 +93,8 @@ function render() {
 
     projectElement.addEventListener("click", () => {
       projectManager.setActiveProject(project);
-      render();
+      renderProjects();
+      renderTodos();
 
       // TEST if the project is active
       console.log("Project's name:", projectManager.getActiveProject().name);
@@ -58,6 +103,7 @@ function render() {
 
     projectsContainer.appendChild(projectElement);
   });
+  renderTodos();
 }
 
 function clearElement(element) {
@@ -66,4 +112,19 @@ function clearElement(element) {
   }
 }
 
-render();
+const deleteProjectBtn = document.querySelector(".delete-project");
+
+deleteProjectBtn.addEventListener("click", () => {
+  const activeProject = projectManager.getActiveProject();
+  if (!activeProject) {
+    alert("No active project to delete");
+    return;
+  }
+
+  projectManager.deleteProject(activeProject.id);
+  console.log(projectManager.projects);
+  renderProjects();
+  renderTodos();
+});
+
+renderProjects();

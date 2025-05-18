@@ -48,8 +48,6 @@
         <!-- .list-title -->
         <!-- h2 "Youtube" -->
         <h2 class="todo-modal-title">Inbox</h2>
-
-        <p class="task-count">3 tasks remaining</p>
       </div>
       <!-- End todo-header -->
 
@@ -58,63 +56,50 @@
         <!-- Start (1) tasks list -->
         <div class="tasks">
           <!-- Each indvedual task format -->
-
-          <!-- (1.1) -->
-          <div class="task">
-            <input type="checkbox" id="task1" />
-            <label for="task1"> Eat </label>
-            <!-- empty span for styling checkbox -->
-            <span class="custom-checkbox"></span>
-          </div>
-          <!-- END task1.1 -->
-
-          <!-- (1.2) -->
-          <div class="task">
-            <input type="checkbox" id="task2" />
-            <label for="task2"> Drink </label>
-            <!-- empty span for styling checkbox -->
-            <span class="custom-checkbox"></span>
-          </div>
-          <!-- END task1.2 -->
-
-          <!-- (1.3) -->
-          <div class="task">
-            <input type="checkbox" id="task3" />
-            <label for="task3"> Rest </label>
-            <!-- empty span for styling checkbox -->
-            <span class="custom-checkbox"></span>
-          </div>
-          <!-- END task1.3 -->
         </div>
         <!-- END (1) tasks -->
 
         <!-- START (2) new task creator -->
         <div class="new-task-creator">
-          <form action="" class="form-todo">
-            <!-- .new list -->
-            <input
-              type="text"
-              class="new todo-input"
-              placeholder="Add a new Todo"
-              aria-label="Add a new Todo"
-            />
+          <dialog class="dialog-todo">
+            <form method="dialog" class="form-todo">
+              <label>
+                Description:
+                <textarea name="description"></textarea>
+              </label>
 
-            <!-- .btn list -->
-            <button
-              type="submit"
-              class="btn create todo"
-              aria-label="create new todo"
-            >
-              +
-            </button>
-          </form>
+              <label>
+                Due Date:
+                <input type="date" name="dueDate" />
+              </label>
+
+              <label>
+                Priority:
+                <select name="priority">
+                  <option value="low">Low</option>
+                  <option value="medium">Medium</option>
+                  <option value="high">High</option>
+                </select>
+              </label>
+
+              <label>
+                Notes:
+                <textarea name="notes"></textarea>
+              </label>
+
+              <menu>
+                <button value="cancel">Cancel</button>
+                <button value="save">Save</button>
+              </menu>
+            </form>
+          </dialog>
         </div>
         <!-- END new-task-creator -->
 
         <!-- Start (3) delete stuffs -->
         <div class="delete-stuffs">
           <button class="btn delete">Clear completed tasks</button>
-          <button class="btn delete">Delete list</button>
+          <button class="btn delete-project">Delete project</button>
         </div>
         <!-- End delete-stuffs -->
       </div>
