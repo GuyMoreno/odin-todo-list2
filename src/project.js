@@ -13,8 +13,8 @@ class Project {
     this.todos.push(todo);
   }
 
-  removeTodo(index) {
-    this.todos.splice(index, 1);
+  removeTodo(todoToRemove) {
+    this.todos = this.todos.filter((t) => t !== todoToRemove);
   }
 
   getTodos() {

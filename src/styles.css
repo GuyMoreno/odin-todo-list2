@@ -154,3 +154,80 @@ form {
 }
 
 /* sfa */
+.todo-card {
+  background: #f9f9f9;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 12px 16px;
+  margin-bottom: 12px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.todo-card:hover {
+  background-color: #e6f7ff;
+}
+
+/* saf */
+
+form.form-todo {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  width: 180px;
+  max-height: 80vh;
+  padding: 16px;
+  background: #f9f9f9;
+  border-radius: 8px;
+  box-shadow: 0 0 8px rgba(0, 0, 0, 0.1);
+}
+
+form.form-todo label {
+  font-weight: 300;
+  font-size: 2rem;
+  margin-bottom: 4px;
+}
+
+form.form-todo input[type="text"] {  
+  width: 100%;
+  height: 90px;
+  padding: 6px 8px;
+  font-size: 1.5 rem;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+}
+
+form.form-todo textarea {
+  width: 150px;
+  height: 80px;
+  padding: 6px 8px;
+  font-size: 2rem;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+  resize: vertical;
+}
+
+form.form-todo button {
+  width: 150px;
+  height: 36px;
+  font-size: 2rem;
+  font-weight: 600;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+form.form-todo button[type="submit"] {
+  font-size: 1.5rem;
+  background-color: var(--clr-primary);
+  color: white;
+}
+
+form.form-todo button[type="button"] {
+  font-size: 1.5rem;
+  background-color: var(--clr-red);
+  color: white;
+}

@@ -1,21 +1,17 @@
 // dom.js
 
 import ProjectManager from "./projectManager.js";
-
 import Todo from "./todo.js";
-
 import { Storage } from "./storage.js";
 
 const projectsContainer = document.querySelector(".project-list");
 const todosContainer = document.querySelector(".todo-modal");
-
 const selectedProjectDomTitle = document.querySelector(".todo-modal-title");
 
 const formProject = document.querySelector(".form-project");
 const formTodo = document.querySelector(".form-todo");
 
 const todoDialog = document.querySelector(".dialog-todo");
-
 const newTodoBtn = document.querySelector(".todo-btn");
 
 newTodoBtn.addEventListener("click", () => {
@@ -48,36 +44,22 @@ formTodo.addEventListener("submit", (e) => {
   renderTodos();
   todoDialog.close();
 
-  // TEST if the todo is added to the active project
-  console.log("Active Project:", activeProject);
-  console.log("New Todo:", todo);
   formTodo.reset();
-  todoDialog.close();
 });
-
-// event listener for the project's form
 
 formProject.addEventListener("submit", (e) => {
   e.preventDefault();
-
-  // get the value of the input
 
   const projectName = formProject
     .querySelector("input")
     .value.toLowerCase()
     .trim();
-  if (projectName == null || projectName == "") {
-    return;
-  }
+  if (!projectName) return;
 
   projectManager.addProject(projectName);
-  formProject.querySelector("input").value = null; // clear the input field
+  formProject.querySelector("input").value = null;
 
-  renderProjects(); // rerender the list
-  console.log(
-    "✅ A project object is successfully logged:",
-    projectManager.projects
-  );
+  renderProjects();
 });
 
 function renderTodos() {
@@ -91,7 +73,6 @@ function renderTodos() {
   todosContainer.style.display = "block";
   selectedProjectDomTitle.innerText = selectedProject.name;
 
-  // ננקה רק את חלק ה-tasks בתוך todosContainer
   const tasksContainer = todosContainer.querySelector(".tasks");
   clearElement(tasksContainer);
 
@@ -117,14 +98,11 @@ function renderProjects() {
       projectManager.setActiveProject(project);
       renderProjects();
       renderTodos();
-
-      // TEST if the project is active
-      console.log("Project's name:", projectManager.getActiveProject().name);
-      console.log("Project's id: ", projectManager.getActiveProject().id);
     });
 
     projectsContainer.appendChild(projectElement);
   });
+
   renderTodos();
 }
 
@@ -144,7 +122,6 @@ deleteProjectBtn.addEventListener("click", () => {
   }
 
   projectManager.deleteProject(activeProject.id);
-  console.log(projectManager.projects);
   renderProjects();
   renderTodos();
 });
@@ -164,12 +141,9 @@ function createTodoCard(todo) {
 
   const createDetail = (label, value) => {
     const p = document.createElement("p");
-
     const strong = document.createElement("strong");
     strong.textContent = `${label}: `;
-
     const text = document.createTextNode(value || "—");
-
     p.append(strong, text);
     return p;
   };
@@ -182,11 +156,31 @@ function createTodoCard(todo) {
   const closeBtn = document.createElement("button");
   closeBtn.textContent = "Close";
   closeBtn.classList.add("close-dialog-btn");
+  closeBtn.addEventListener("click", () => dialog.close());
 
-  dialog.append(title, description, dueDate, priority, notes, closeBtn);
+  const deleteBtn = document.createElement("button");
+  deleteBtn.textContent = "🗑️ Delete Todo";
+  deleteBtn.classList.add("delete-todo-btn");
+
+  deleteBtn.addEventListener("click", () => {
+    const activeProject = projectManager.getActiveProject();
+    activeProject.removeTodo(todo);
+    Storage.saveProjects(projectManager.projects);
+    renderTodos();
+    dialog.close();
+  });
+
+  dialog.append(
+    title,
+    description,
+    dueDate,
+    priority,
+    notes,
+    deleteBtn,
+    closeBtn
+  );
 
   card.addEventListener("click", () => dialog.showModal());
-  closeBtn.addEventListener("click", () => dialog.close());
 
   const wrapper = document.createElement("div");
   wrapper.append(card, dialog);
