@@ -133,8 +133,30 @@ function renderTodos() {
 function createTodoCard(todo) {
   const card = document.createElement("div");
   card.classList.add("todo-card");
-  card.textContent = todo.title;
 
+  // === Checkbox + Title ===
+  const checkbox = document.createElement("input");
+  checkbox.type = "checkbox";
+  checkbox.checked = todo.completed;
+  checkbox.classList.add("todo-checkbox");
+
+  const label = document.createElement("span");
+  label.textContent = todo.title;
+  if (todo.completed) {
+    label.style.textDecoration = "line-through";
+    label.style.opacity = "0.6";
+  }
+
+  checkbox.addEventListener("change", () => {
+    todo.toggleCompleted();
+    Storage.saveProjects(projectManager.projects);
+    label.style.textDecoration = todo.completed ? "line-through" : "none";
+    label.style.opacity = todo.completed ? "0.6" : "1";
+  });
+
+  card.append(checkbox, label);
+
+  // === Dialog for details ===
   const dialog = document.createElement("dialog");
   dialog.classList.add("todo-dialog");
 
@@ -195,7 +217,11 @@ function createTodoCard(todo) {
     closeBtn
   );
 
-  card.addEventListener("click", () => dialog.showModal());
+  card.addEventListener("click", (e) => {
+    if (e.target.tagName.toLowerCase() !== "input") {
+      dialog.showModal();
+    }
+  });
 
   const wrapper = document.createElement("div");
   wrapper.append(card, dialog);
