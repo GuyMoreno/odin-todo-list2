@@ -1,5 +1,3 @@
-// dom.js
-
 import ProjectManager from "./projectManager.js";
 import Todo from "./todo.js";
 import { Storage } from "./storage.js";
@@ -13,40 +11,52 @@ const formTodo = document.querySelector(".form-todo");
 
 const todoDialog = document.querySelector(".dialog-todo");
 const newTodoBtn = document.querySelector(".todo-btn");
+const closeTodoDialogBtn = document.getElementById("close-todo-dialog-btn");
+
+let currentlyEditingTodo = null;
 
 newTodoBtn.addEventListener("click", () => {
+  formTodo.reset();
+  currentlyEditingTodo = null;
   todoDialog.showModal();
 });
 
-const closeTodoDialogBtn = document.getElementById("close-todo-dialog-btn");
-
 closeTodoDialogBtn.addEventListener("click", () => {
   todoDialog.close();
+  currentlyEditingTodo = null;
 });
 
 const projectManager = new ProjectManager();
 
 formTodo.addEventListener("submit", (e) => {
   e.preventDefault();
-
-  const todo = new Todo(
-    formTodo.title.value,
-    formTodo.description.value,
-    formTodo.dueDate.value,
-    formTodo.priority.value,
-    formTodo.notes.value
-  );
-
   const activeProject = projectManager.getActiveProject();
-  activeProject.addTodo(todo);
+
+  if (currentlyEditingTodo) {
+    currentlyEditingTodo.title = formTodo.title.value;
+    currentlyEditingTodo.description = formTodo.description.value;
+    currentlyEditingTodo.dueDate = formTodo.dueDate.value;
+    currentlyEditingTodo.priority = formTodo.priority.value;
+    currentlyEditingTodo.notes = formTodo.notes.value;
+  } else {
+    const todo = new Todo(
+      formTodo.title.value,
+      formTodo.description.value,
+      formTodo.dueDate.value,
+      formTodo.priority.value,
+      formTodo.notes.value
+    );
+    activeProject.addTodo(todo);
+  }
 
   Storage.saveProjects(projectManager.projects);
   renderTodos();
   todoDialog.close();
-
   formTodo.reset();
+  currentlyEditingTodo = null;
 });
 
+// יצירת פרויקט חדש
 formProject.addEventListener("submit", (e) => {
   e.preventDefault();
 
@@ -58,30 +68,24 @@ formProject.addEventListener("submit", (e) => {
 
   projectManager.addProject(projectName);
   formProject.querySelector("input").value = null;
-
   renderProjects();
 });
 
-function renderTodos() {
-  const selectedProject = projectManager.getActiveProject();
-
-  if (!selectedProject) {
-    todosContainer.style.display = "none";
+// מחיקת פרויקט
+const deleteProjectBtn = document.querySelector(".delete-project");
+deleteProjectBtn.addEventListener("click", () => {
+  const activeProject = projectManager.getActiveProject();
+  if (!activeProject) {
+    alert("No active project to delete");
     return;
   }
 
-  todosContainer.style.display = "block";
-  selectedProjectDomTitle.innerText = selectedProject.name;
+  projectManager.deleteProject(activeProject.id);
+  renderProjects();
+  renderTodos();
+});
 
-  const tasksContainer = todosContainer.querySelector(".tasks");
-  clearElement(tasksContainer);
-
-  selectedProject.todos.forEach((todo) => {
-    const card = createTodoCard(todo);
-    tasksContainer.appendChild(card);
-  });
-}
-
+// רנדר פרויקטים
 function renderProjects() {
   clearElement(projectsContainer);
 
@@ -106,27 +110,25 @@ function renderProjects() {
   renderTodos();
 }
 
-function clearElement(element) {
-  while (element.firstChild) {
-    element.removeChild(element.firstChild);
-  }
-}
+function renderTodos() {
+  const selectedProject = projectManager.getActiveProject();
 
-const deleteProjectBtn = document.querySelector(".delete-project");
-
-deleteProjectBtn.addEventListener("click", () => {
-  const activeProject = projectManager.getActiveProject();
-  if (!activeProject) {
-    alert("No active project to delete");
+  if (!selectedProject) {
+    todosContainer.style.display = "none";
     return;
   }
 
-  projectManager.deleteProject(activeProject.id);
-  renderProjects();
-  renderTodos();
-});
+  todosContainer.style.display = "block";
+  selectedProjectDomTitle.innerText = selectedProject.name;
 
-renderProjects();
+  const tasksContainer = todosContainer.querySelector(".tasks");
+  clearElement(tasksContainer);
+
+  selectedProject.todos.forEach((todo) => {
+    const card = createTodoCard(todo);
+    tasksContainer.appendChild(card);
+  });
+}
 
 function createTodoCard(todo) {
   const card = document.createElement("div");
@@ -155,13 +157,10 @@ function createTodoCard(todo) {
 
   const closeBtn = document.createElement("button");
   closeBtn.textContent = "Close";
-  closeBtn.classList.add("close-dialog-btn");
   closeBtn.addEventListener("click", () => dialog.close());
 
   const deleteBtn = document.createElement("button");
   deleteBtn.textContent = "🗑️ Delete Todo";
-  deleteBtn.classList.add("delete-todo-btn");
-
   deleteBtn.addEventListener("click", () => {
     const activeProject = projectManager.getActiveProject();
     activeProject.removeTodo(todo);
@@ -170,12 +169,28 @@ function createTodoCard(todo) {
     dialog.close();
   });
 
+  const editBtn = document.createElement("button");
+  editBtn.textContent = "✏️ Edit Todo";
+  editBtn.addEventListener("click", () => {
+    currentlyEditingTodo = todo;
+
+    formTodo.title.value = todo.title;
+    formTodo.description.value = todo.description;
+    formTodo.dueDate.value = todo.dueDate;
+    formTodo.priority.value = todo.priority;
+    formTodo.notes.value = todo.notes;
+
+    dialog.close();
+    todoDialog.showModal();
+  });
+
   dialog.append(
     title,
     description,
     dueDate,
     priority,
     notes,
+    editBtn,
     deleteBtn,
     closeBtn
   );
@@ -186,3 +201,11 @@ function createTodoCard(todo) {
   wrapper.append(card, dialog);
   return wrapper;
 }
+
+function clearElement(element) {
+  while (element.firstChild) {
+    element.removeChild(element.firstChild);
+  }
+}
+
+renderProjects();

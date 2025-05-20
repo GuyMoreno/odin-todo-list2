@@ -171,63 +171,83 @@ form {
 
 /* saf */
 
+/* Dialog styling */
+.dialog-todo {
+  border: none;
+  border-radius: 0.5rem;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+  padding: 0;
+}
+
+.dialog-todo::backdrop {
+  background-color: rgba(0, 0, 0, 0.5);
+}
+
+/* Form in dialog */
 form.form-todo {
   display: flex;
   flex-direction: column;
-  gap: 12px;
-  width: 180px;
-  max-height: 80vh;
-  padding: 16px;
+  gap: 0.5rem;
+  width: 350px;
+  max-width: 90vw;
+  padding: 1.5rem;
   background: #f9f9f9;
-  border-radius: 8px;
-  box-shadow: 0 0 8px rgba(0, 0, 0, 0.1);
+  border-radius: 0.5rem;
+}
+
+form.form-todo h2 {
+  margin-bottom: 1rem;
+  text-align: center;
 }
 
 form.form-todo label {
-  font-weight: 300;
-  font-size: 2rem;
-  margin-bottom: 4px;
+  font-weight: 500;
+  font-size: 0.9rem;
+  margin-bottom: 0.2rem;
 }
 
-form.form-todo input[type="text"] {  
+form.form-todo input[type="text"],
+form.form-todo input[type="date"],
+form.form-todo select {
   width: 100%;
-  height: 90px;
-  padding: 6px 8px;
-  font-size: 1.5 rem;
+  padding: 0.5rem;
+  font-size: 1rem;
   border: 1px solid #ccc;
-  border-radius: 4px;
-  box-sizing: border-box;
+  border-radius: 0.3rem;
 }
 
 form.form-todo textarea {
-  width: 150px;
+  width: 100%;
   height: 80px;
-  padding: 6px 8px;
-  font-size: 2rem;
+  padding: 0.5rem;
+  font-size: 1rem;
   border: 1px solid #ccc;
-  border-radius: 4px;
-  box-sizing: border-box;
+  border-radius: 0.3rem;
   resize: vertical;
 }
 
+.form-todo-buttons {
+  display: flex;
+  gap: 0.5rem;
+  margin-top: 1rem;
+}
+
 form.form-todo button {
-  width: 150px;
-  height: 36px;
-  font-size: 2rem;
-  font-weight: 600;
+  flex: 1;
+  padding: 0.5rem;
+  font-size: 0.9rem;
+  font-weight: 500;
   border: none;
-  border-radius: 6px;
+  border-radius: 0.3rem;
   cursor: pointer;
 }
 
 form.form-todo button[type="submit"] {
-  font-size: 1.5rem;
   background-color: var(--clr-primary);
   color: white;
 }
 
 form.form-todo button[type="button"] {
-  font-size: 1.5rem;
   background-color: var(--clr-red);
   color: white;
 }
