@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Todo List</title>
+  <script defer src="main.js"></script></head>
+  <body>
+    <h1 class="title">Doing First</h1>
+
+    <!-- Projects div / .all-tasks -->
+    <div class="projects">
+      <!-- .task-list-title -->
+      <h2 class="projects-title">Projects</h2>
+
+      <!-- .task-list -->
+      <ul class="project-list">
+        <!-- <li class="project active">Inbox</li>
+        <li class="project">Home</li>
+        <li class="project">Work</li> -->
+      </ul>
+
+      <form action="" class="form-project">
+        <!-- .new list -->
+        <input
+          type="text"
+          class="new project-input"
+          placeholder="Add a new project"
+          aria-label="Add a new project"
+        />
+
+        <!-- .btn list -->
+        <button
+          type="submit"
+          class="btn create project"
+          aria-label="create new project"
+        >
+          +
+        </button>
+      </form>
+    </div>
+    <!-- END of Projects div / .all-tasks -->
+
+    <!-- Todos div / .todo-list -->
+    <div class="todo-modal">
+      <!-- todo-header -->
+      <div class="todo-header">
+        <!-- .list-title -->
+        <!-- h2 "Youtube" -->
+        <h2 class="todo-modal-title">Inbox</h2>
+      </div>
+      <!-- End todo-header -->
+
+      <!-- start todo-body (3 parts) -->
+      <div class="todo-body">
+        <!-- Start (1) tasks list -->
+        <div class="tasks">
+          <!-- Each indvedual task format -->
+        </div>
+        <!-- END (1) tasks -->
+
+        <!-- START (2) new task creator -->
+        <div class="new-task-creator">
+          <button class="todo-btn">+ New Todo</button>
+          <dialog class="dialog-todo">
+            <form class="form-todo" method="dialog">
+              <h2>New Todo</h2>
+              <label for="title">Title</label>
+              <input
+                type="text"
+                id="todo-title"
+                name="title"
+                required
+              /><br /><br />
+
+              <label for="description">Description</label>
+              <textarea id="todo-description" name="description"></textarea
+              ><br /><br />
+
+              <label for="dueDate">Due Date</label>
+              <input type="date" id="dueDate" name="dueDate" /><br /><br />
+
+              <label for="priority">Priority</label>
+              <select id="priority" name="priority">
+                <option value="low">Low</option>
+                <option value="medium" selected>Medium</option>
+                <option value="high">High</option></select
+              ><br /><br />
+
+              <label for="notes">Notes</label>
+              <textarea id="notes" name="notes"></textarea><br /><br />
+
+              <button type="submit" id="submit-todo-btn">Add Todo</button>
+              <button type="button" id="close-todo-dialog-btn">Cancel</button>
+            </form>
+          </dialog>
+        </div>
+        <!-- END new-task-creator -->
+
+        <!-- Start (3) delete stuffs -->
+        <div class="delete-stuffs">
+          <button class="btn delete-project">Delete project</button>
+        </div>
+        <!-- End delete-stuffs -->
+      </div>
+      <!-- END of todo-body (3 parts) -->
+    </div>
+    <!-- End todo-modal div / .todo-list -->
+  </body>
+</html>
